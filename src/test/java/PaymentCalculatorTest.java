@@ -82,6 +82,16 @@ public class PaymentCalculatorTest {
         assertThat(actual, is(60));
     }
 
+    @Test
+    public void calculateStandardPaymentForFamilyCReturnsExpectedAmount() throws Exception {
+        Job job = getFamilyCJob();
+        when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(21);
+
+        int actual = paymentCalculator.calculateStandardPayment(job);
+
+        assertThat(actual, is(84));
+    }
+
     private Job getFamilyAJob() throws Exception {
         Job job = new Job();
         job.setStartHour(17);

@@ -1,7 +1,7 @@
 public class PaymentCalculator {
 
     private Rate rate = new Rate();
-    private int[] payment = new int[]{3};
+    private int[] payment = new int[]{};
 
     public int calculatePayment(Job job) {
         int hourlyRate = rate.getStandardHourlyRate(job.getFamily());
