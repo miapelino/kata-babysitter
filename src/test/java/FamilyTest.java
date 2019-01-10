@@ -135,6 +135,34 @@ public class FamilyTest {
         assertThat(actual, is(16));
     }
 
+    @Test
+    public void testReturnHoursBetweenStartAndBedtime() {
+        family.setBedtimeStartHour(7);
+
+        int actual = family.hoursBetweenStartHourAndBedtime(5);
+
+        assertThat(actual, is(2));
+    }
+
+    @Test
+    public void testReturnHoursBetweenStartAndLateNight() {
+        family.setLateNightStartHour(7);
+
+        int actual = family.hoursBetweenStartHourAndLateNight(5);
+
+        assertThat(actual, is(2));
+    }
+
+    @Test
+    public void testReturnHoursBetweenBedtimeAndLateNight() {
+        family.setLateNightStartHour(7);
+        family.setBedtimeStartHour(3);
+
+        int actual = family.hoursBetweenBedtimeAndLateNight();
+
+        assertThat(actual, is(4));
+    }
+
     private Family getTestFamilyA() {
         Family familyA = new Family();
         familyA.setTotalKids(2);

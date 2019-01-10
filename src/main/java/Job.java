@@ -6,7 +6,6 @@ public class Job {
     private int jobDuration;
     private int standardHoursWorked;
     private int remainingHours;
-    private int bedtimeHoursWorked;
 
     public Job(Family family, int startHour, int jobDuration) throws Exception {
         validateWithinAllowableHours(startHour, jobDuration);
@@ -42,42 +41,34 @@ public class Job {
         return this.standardHoursWorked;
     }
 
-    public void setBedtimeHoursWorked(int bedtimeHoursWorked) {
-        this.bedtimeHoursWorked = bedtimeHoursWorked;
-    }
-
-    public int getBedtimeHoursWorked() {
-        return this.bedtimeHoursWorked;
-    }
-
     public int determineNumberOfStandardHours() {
         int standardHours;
-        if(this.family.getBedtimeStartHour() != 0 &&
-                !(this.jobDuration < (this.family.getBedtimeStartHour() - this.startHour))) {
-            standardHours = this.family.getBedtimeStartHour() - this.startHour;
-        } else if(this.family.getLateNightStartHour() != 0 &&
-                !(this.jobDuration < (this.family.getLateNightStartHour() - this.startHour))){
-            standardHours = this.family.getLateNightStartHour() - this.startHour;
+        if(family.getBedtimeStartHour() != 0 &&
+                !(jobDuration < family.hoursBetweenStartHourAndBedtime(startHour))) {
+            standardHours = family.hoursBetweenStartHourAndBedtime(startHour);
+        } else if(family.getLateNightStartHour() != 0 &&
+                !(jobDuration < family.hoursBetweenStartHourAndLateNight(startHour))){
+            standardHours = family.hoursBetweenStartHourAndLateNight(startHour);
         } else {
-            standardHours = this.jobDuration;
+            standardHours = jobDuration;
         }
         return standardHours;
     }
 
     public int determineNumberOfBedtimeHours(int hoursRemaining) {
-        if(this.family.getBedtimeStartHour() != 0) {
+        if(family.getBedtimeStartHour() != 0) {
             int bedtimeHours;
-            if(this.family.getLateNightStartHour() != 0) {
-                if (hoursRemaining <= (this.family.getLateNightStartHour() - this.family.getBedtimeStartHour())) {
-                    bedtimeHours = this.family.getLateNightStartHour() - this.family.getBedtimeStartHour();
+            if(family.getLateNightStartHour() != 0) {
+                if (hoursRemaining <= (family.hoursBetweenBedtimeAndLateNight())) {
+                    bedtimeHours = family.hoursBetweenBedtimeAndLateNight();
                 } else {
-                    bedtimeHours = this.family.getLateNightStartHour() - this.family.getBedtimeStartHour();
+                    bedtimeHours = family.hoursBetweenBedtimeAndLateNight();
                 }
                 return bedtimeHours;
             } else {
                 return hoursRemaining;
             }
         }
-        return this.family.getBedtimeStartHour();
+        return family.getBedtimeStartHour();
     }
 }

@@ -21,7 +21,6 @@ public class PaymentCalculator {
         int bedtimeHourlyRate = 0;
         if(job.getRemainingHours() != 0) {
             int bedtimeHoursWorked = job.determineNumberOfBedtimeHours(job.getRemainingHours());
-            job.setBedtimeHoursWorked(bedtimeHoursWorked);
             job.setRemainingHours(job.getJobDuration() - job.getStandardHoursWorked() + bedtimeHoursWorked);
             return job.getFamily().getBedtimeHourlyRate() * bedtimeHoursWorked;
         }

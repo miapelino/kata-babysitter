@@ -57,6 +57,18 @@ public class Family {
                 (this.getTotalNumberOfPets() * LATE_NIGHT_PET_RATE);
     }
 
+    public int hoursBetweenBedtimeAndLateNight() {
+        return this.lateNightStartHour - this.bedtimeStartHour;
+    }
+
+    public int hoursBetweenStartHourAndBedtime(int startHour) {
+        return this.bedtimeStartHour - startHour;
+    }
+
+    public int hoursBetweenStartHourAndLateNight(int startHour) {
+        return this.lateNightStartHour - startHour;
+    }
+
     private int addBonusIfHaunted() {
         return this.getIsHaunted() ? 1 : 0;
     }

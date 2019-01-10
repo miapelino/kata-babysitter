@@ -72,7 +72,6 @@ public class PaymentCalculatorTest {
         when(job.getJobDuration()).thenReturn(9);
         when(job.determineNumberOfStandardHours()).thenReturn(5);
         doNothing().when(job).setStandardHoursWorked(5);
-        doNothing().when(job).setBedtimeHoursWorked(2);
         doNothing().when(job).setRemainingHours(any(Integer.class));
         when(job.determineNumberOfBedtimeHours(4)).thenReturn(2);
         when(job.getRemainingHours()).thenReturn(4,4,2);
@@ -91,7 +90,6 @@ public class PaymentCalculatorTest {
         when(job.getJobDuration()).thenReturn(2);
         when(job.determineNumberOfStandardHours()).thenReturn(2);
         doNothing().when(job).setStandardHoursWorked(2);
-        doNothing().when(job).setBedtimeHoursWorked(0);
         doNothing().when(job).setRemainingHours(any(Integer.class));
         when(job.determineNumberOfBedtimeHours(0)).thenReturn(0);
         when(job.getRemainingHours()).thenReturn(0,0,0);
@@ -110,7 +108,6 @@ public class PaymentCalculatorTest {
         when(job.getJobDuration()).thenReturn(2);
         when(job.determineNumberOfStandardHours()).thenReturn(0);
         doNothing().when(job).setStandardHoursWorked(0);
-        doNothing().when(job).setBedtimeHoursWorked(2);
         doNothing().when(job).setRemainingHours(any(Integer.class));
         when(job.determineNumberOfBedtimeHours(2)).thenReturn(2);
         when(job.getRemainingHours()).thenReturn(2,2,0);
@@ -128,7 +125,6 @@ public class PaymentCalculatorTest {
         when(job.getJobDuration()).thenReturn(9);
         when(job.determineNumberOfStandardHours()).thenReturn(4);
         doNothing().when(job).setStandardHoursWorked(4);
-        doNothing().when(job).setBedtimeHoursWorked(5);
         doNothing().when(job).setRemainingHours(any(Integer.class));
         when(job.determineNumberOfBedtimeHours(5)).thenReturn(5);
         when(job.getRemainingHours()).thenReturn(5,5,0);
@@ -146,7 +142,6 @@ public class PaymentCalculatorTest {
         when(job.getJobDuration()).thenReturn(4);
         when(job.determineNumberOfStandardHours()).thenReturn(4);
         doNothing().when(job).setStandardHoursWorked(4);
-        doNothing().when(job).setBedtimeHoursWorked(0);
         doNothing().when(job).setRemainingHours(any(Integer.class));
         when(job.determineNumberOfBedtimeHours(0)).thenReturn(0);
         when(job.getRemainingHours()).thenReturn(0,0,0);
@@ -158,14 +153,12 @@ public class PaymentCalculatorTest {
 
     @Test
     public void calculateFamilyCPaymentReturnsBedtimeOnlyPaymentTotal() throws Exception {
-//        Job job = testDataHelper.getFamilyCJob(21,5);
         when(job.getFamily()).thenReturn(family);
         when(family.getStandardHourlyRate()).thenReturn(21);
         when(family.getBedtimeHourlyRate()).thenReturn(15);
         when(job.getJobDuration()).thenReturn(5);
         when(job.determineNumberOfStandardHours()).thenReturn(0);
         doNothing().when(job).setStandardHoursWorked(0);
-        doNothing().when(job).setBedtimeHoursWorked(5);
         doNothing().when(job).setRemainingHours(any(Integer.class));
         when(job.determineNumberOfBedtimeHours(5)).thenReturn(5);
         when(job.getRemainingHours()).thenReturn(5, 5, 0);
