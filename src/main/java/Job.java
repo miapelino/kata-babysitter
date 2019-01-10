@@ -4,6 +4,7 @@ public class Job {
     private Family family;
     private int startHour;
     private int jobDuration;
+    private int remainingHours;
 
     public Family getFamily() {return this.family;}
 
@@ -34,4 +35,28 @@ public class Job {
     public int getJobEndHour() {
         return startHour + jobDuration;
     }
+
+    private void setRemainingHours(int remainingHours) {
+        this.remainingHours = remainingHours;
+    }
+
+    public int getRemainingHours() {
+        return this.remainingHours;
+    }
+
+    public int getNumberOfStandardHours() {
+        int standardHours = 0;
+        if(this.family.getBedtimeStartHour() != 0 &&
+                !(this.jobDuration < (this.family.getBedtimeStartHour() - this.startHour))) {
+            standardHours = this.family.getBedtimeStartHour() - this.startHour;
+        } else if(this.family.getLateNightStartHour() != 0 &&
+                !(this.jobDuration < (this.family.getLateNightStartHour() - this.startHour))){
+            standardHours = this.family.getLateNightStartHour() - this.startHour;
+        } else {
+            standardHours = this.jobDuration;
+        }
+        setRemainingHours(this.jobDuration - standardHours);
+        return standardHours;
+    }
+
 }

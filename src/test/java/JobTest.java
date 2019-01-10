@@ -94,7 +94,7 @@ public class JobTest {
     }
 
     @Test
-    public void testGetJobEndTime() throws Exception {
+    public void testGetJobEndHour() throws Exception {
         int jobDuration = 7;
         int startTime = 18;
         int expected = jobDuration + startTime;
@@ -103,5 +103,88 @@ public class JobTest {
         job.setStartHour(startTime);
 
         assertThat(job.getJobEndHour(), is(expected));
+    }
+
+    @Test
+    public void testGetNumberOfStandardHoursReturnsAllStandardHoursForFamilyA() throws Exception {
+        job.setJobDuration(8);
+        job.setStartHour(17);
+        Family familyA = new Family();
+        familyA.setLateNightStartHour(23);
+        job.setFamily(familyA);
+
+        int actual = job.getNumberOfStandardHours();
+
+        assertThat(actual, is(6));
+    }
+
+    @Test
+    public void testGetNumberOfStandardHoursSetsCorrectRemainingHoursForFamilyA() throws Exception {
+        job.setJobDuration(8);
+        job.setStartHour(17);
+        Family familyA = new Family();
+        familyA.setLateNightStartHour(23);
+        job.setFamily(familyA);
+        job.getNumberOfStandardHours();
+
+        int actual = job.getRemainingHours();
+
+        assertThat(actual, is(2));
+    }
+
+    @Test
+    public void testGetNumberOfStandardHoursReturnsAllStandardHoursForFamilyB() throws Exception {
+        job.setJobDuration(8);
+        job.setStartHour(17);
+        Family familyB = new Family();
+        familyB.setBedtimeStartHour(22);
+        familyB.setLateNightStartHour(24);
+        job.setFamily(familyB);
+
+        int actual = job.getNumberOfStandardHours();
+
+        assertThat(actual, is(5));
+    }
+
+    @Test
+    public void testGetNumberOfStandardHoursSetsCorrectRemainingHoursForFamilyB() throws Exception {
+        job.setJobDuration(8);
+        job.setStartHour(17);
+        Family familyB = new Family();
+        familyB.setBedtimeStartHour(22);
+        familyB.setLateNightStartHour(24);
+        job.setFamily(familyB);
+        job.getNumberOfStandardHours();
+
+        int actual = job.getRemainingHours();
+
+        assertThat(actual, is(3));
+    }
+
+    @Test
+    public void testGetNumberOfStandardHoursReturnsAllStandardHoursForFamilyC() throws Exception {
+        job.setJobDuration(8);
+        job.setStartHour(17);
+        Family familyC = new Family();
+        familyC.setBedtimeStartHour(21);
+        job.setFamily(familyC);
+
+        int actual = job.getNumberOfStandardHours();
+
+        assertThat(actual, is(4));
+    }
+
+    @Test
+    public void testGetNumberOfStandardHoursSetsCorrectRemainingHoursForFamilyC() throws Exception {
+        job.setJobDuration(8);
+        job.setStartHour(17);
+        Family familyC = new Family();
+        familyC.setBedtimeStartHour(21);
+        job.setFamily(familyC);
+        job.getNumberOfStandardHours();
+
+        int actual = job.getRemainingHours();
+
+        assertThat(actual, is(4));
     }
 }
