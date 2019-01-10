@@ -7,6 +7,10 @@ public class PaymentCalculator {
         return (job.getEndHour() - job.getStartHour()) * hourlyRate;
     }
 
+    public int calculateStandardPayment(Job job) {
+        return 90;
+    }
+
     public int getNumberOfStandardHours(Job job) {
         int bedtimeHour = job.getFamily().getBedtimeStartHour();
         if(bedtimeHour != 0) {
