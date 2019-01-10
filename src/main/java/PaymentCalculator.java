@@ -1,16 +1,15 @@
 public class PaymentCalculator {
 
     private Rate rate = new Rate();
-    private int[] payment = new int[]{};
+    private int[] payment = new int[3];
 
     public int calculatePayment(Job job) {
-        int hourlyRate = rate.getStandardHourlyRate(job.getFamily());
-        return (job.getEndHour() - job.getStartHour()) * hourlyRate;
+        payment[0] = calculateStandardPayment(job);
+        return payment[0];
     }
 
     public int calculateStandardPayment(Job job) {
-        payment[0] = rate.getStandardHourlyRate(job.getFamily()) * getNumberOfStandardHours(job);
-        return payment[0];
+        return rate.getStandardHourlyRate(job.getFamily()) * getNumberOfStandardHours(job);
     }
 
     public int getNumberOfStandardHours(Job job) {
@@ -23,5 +22,9 @@ public class PaymentCalculator {
             return lateNightHour - job.getStartHour();
         }
         return 0;
+    }
+
+    public int[] getPayment() {
+        return this.payment;
     }
 }

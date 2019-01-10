@@ -14,7 +14,12 @@ public class PaymentCalculatorTest {
     private PaymentCalculator paymentCalculator;
     @Mock
     private Rate rate;
+
     private Job job;
+
+    private static final int START_HOUR_17 = 17;
+    private static final int END_HOUR_22 = 22;
+    private static final int END_HOUR_26 = 26;
 
     @Before
     public void setUp() {
@@ -22,22 +27,18 @@ public class PaymentCalculatorTest {
     }
 
     @Test
-    public void calculatePaymentTakesHoursFromJobAndUsesRateToReturnTotalPay() throws Exception {
-        Family familyA = new Family();
-        Job job = new Job();
-        job.setFamily(familyA);
-        job.setStartHour(17);
-        job.setEndHour(22);
+    public void calculateFamilyAPaymentAddsStandardPaymentAmountToObject() throws Exception {
+        Job job = getFamilyAJob(START_HOUR_17,END_HOUR_22);
         when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(15);
 
-        int actual = paymentCalculator.calculatePayment(job);
+        paymentCalculator.calculatePayment(job);
 
-        assertThat(actual, is(75));
+        assertThat(paymentCalculator.getPayment()[0], is(90));
     }
 
     @Test
     public void getNumberOfStandardHoursForFamilyAJobReturnsExpectedNumber() throws Exception {
-        Job job = getFamilyAJob();
+        Job job = getFamilyAJob(START_HOUR_17,END_HOUR_26);
 
         int actual = paymentCalculator.getNumberOfStandardHours(job);
 
@@ -64,7 +65,7 @@ public class PaymentCalculatorTest {
 
     @Test
     public void calculateStandardPaymentForFamilyAReturnsExpectedAmount() throws Exception {
-        Job job = getFamilyAJob();
+        Job job = getFamilyAJob(START_HOUR_17,END_HOUR_26);
         when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(15);
 
         int actual = paymentCalculator.calculateStandardPayment(job);
@@ -92,10 +93,10 @@ public class PaymentCalculatorTest {
         assertThat(actual, is(84));
     }
 
-    private Job getFamilyAJob() throws Exception {
+    private Job getFamilyAJob(int startHour, int endHour) throws Exception {
         Job job = new Job();
-        job.setStartHour(17);
-        job.setEndHour(26);
+        job.setStartHour(startHour);
+        job.setEndHour(endHour);
         Family familyA = new Family();
         familyA.setBedtimeStartHour(23);
         job.setFamily(familyA);
