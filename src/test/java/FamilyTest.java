@@ -47,12 +47,19 @@ public class FamilyTest {
     }
 
     @Test
-    public void testGetAndSetBedtimeStartTime() {
+    public void testGetAndSetBedtimeStartHour() {
         int expectedBedtime = 23;
 
         family.setBedtimeStartHour(expectedBedtime);
 
         assertThat(family.getBedtimeStartHour(), is(expectedBedtime));
+    }
+
+    @Test
+    public void testGetAndSetLateNightStartHour() {
+        int expectedLateNightStartHour = 26;
+
+        family.setLateNightStartHour(expectedLateNightStartHour);
     }
 
     @Test

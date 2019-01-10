@@ -53,6 +53,15 @@ public class PaymentCalculatorTest {
         assertThat(actual, is(5));
     }
 
+    @Test
+    public void getNumberOfStandardHoursForFamilyCJobReturnsExpectedNumber() throws Exception {
+        Job job = getFamilyCJob();
+
+        int actual = paymentCalculator.getNumberOfStandardHours(job);
+
+        assertThat(actual, is(4));
+    }
+
     private Job getFamilyAJob() throws Exception {
         Job job = new Job();
         job.setStartHour(17);
@@ -73,5 +82,13 @@ public class PaymentCalculatorTest {
         return job;
     }
 
-
+    private Job getFamilyCJob() throws Exception {
+        Job job = new Job();
+        job.setStartHour(17);
+        job.setEndHour(26);
+        Family familyC = new Family();
+        familyC.setLateNightStartHour(21);
+        job.setFamily(familyC);
+        return job;
+    }
 }

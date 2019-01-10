@@ -4,6 +4,7 @@ public class Family {
     private int totalCats;
     private boolean isHaunted;
     private int bedtimeStartHour;
+    private int lateNightStartHour;
 
     public int getTotalKids() {return this.totalKids;}
 
@@ -26,4 +27,8 @@ public class Family {
     public int getBedtimeStartHour() {return bedtimeStartHour;}
 
     public void setBedtimeStartHour(int bedtimeStartHour) {this.bedtimeStartHour = bedtimeStartHour;}
+
+    public int getLateNightStartHour() {return lateNightStartHour;}
+
+    public void setLateNightStartHour(int lateNightStartHour) {this.lateNightStartHour = lateNightStartHour;}
 }
