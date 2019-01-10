@@ -47,4 +47,14 @@ public class PaymentCalculatorTest {
         verify(rate, times(1)).getStandardHourlyRate(job.getFamily());
     }
 
+    @Test
+    public void getNumberOfStandardHoursForFamilyAJobReturnsExpectedNumber() throws Exception {
+        Job job = new Job();
+        job.setStartHour(17);
+        job.setEndHour(26);
+
+        int actual = paymentCalculator.getNumberOfStandardHours(job);
+
+        assertThat(actual, is(6));
+    }
 }

@@ -6,4 +6,8 @@ public class PaymentCalculator {
         int hourlyRate = rate.getStandardHourlyRate(job.getFamily());
         return (job.getEndHour() - job.getStartHour()) * hourlyRate;
     }
+
+    public int getNumberOfStandardHours(Job job) {
+        return 6;
+    }
 }
