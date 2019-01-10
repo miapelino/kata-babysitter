@@ -38,4 +38,14 @@ public class FamilyTest {
 
         assertThat(expectedTotalCats, is(family.getTotalCats()));
     }
+
+    @Test
+    public void testGetTotalNumberOfPetsAddsThreeCatsAndTwoDogsAndGets5() {
+        family.setTotalCats(3);
+        family.setTotalDogs(2);
+
+        int actual = family.getTotalNumberOfPets();
+
+        assertThat(actual, is(5));
+    }
 }

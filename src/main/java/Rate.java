@@ -3,7 +3,7 @@ public class Rate {
     static final int SUBSEQUENT_CHILD_RATE = 5;
     static final int DOG_RATE = 2;
     static final int CAT_RATE = 1;
-
+    static final int BEDTIME_PET_VALUE= 2;
 
     public int getStandardHourlyRate(Family family) {
         int totalKids = family.getTotalKids();
@@ -13,6 +13,6 @@ public class Rate {
     }
 
     public int getBedtimeHourlyRate(Family family) {
-        return 8;
+        return getStandardHourlyRate(family) - family.getTotalNumberOfPets() * BEDTIME_PET_VALUE;
     }
 }

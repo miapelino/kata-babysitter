@@ -15,4 +15,8 @@ public class Family {
 
     public void setTotalCats(int totalCats) {this.totalCats = totalCats;}
 
+    public int getTotalNumberOfPets() {
+        return this.totalDogs + this.totalCats;
+    }
+
 }

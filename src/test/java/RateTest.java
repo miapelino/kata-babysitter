@@ -48,6 +48,15 @@ public class RateTest {
         assertThat(actual, is(8));
     }
 
+    @Test
+    public void getBedtimeHourlyRateUsingFamilyCReturns15() {
+        Family familyC = getTestFamilyC();
+
+        int actual = rate.getBedtimeHourlyRate(familyC);
+
+        assertThat(actual, is(15));
+    }
+
     private Family getTestFamilyA() {
         Family familyA = new Family();
         familyA.setTotalKids(2);
