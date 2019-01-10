@@ -1,5 +1,5 @@
 public class Rate {
-    public int getRate() {
-        return 9;
+    public int getRate(Family family) {
+        return family.getTotalKids() * 9;
     }
 }

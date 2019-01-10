@@ -1,6 +1,15 @@
 public class Job {
-    int startHour;
-    int endHour;
+    private Family family;
+    private int startHour;
+    private int endHour;
+
+    public Family getFamily() {
+        return this.family;
+    }
+
+    public void setFamily(Family family) {
+        this.family = family;
+    }
 
     public int getStartHour() {
         return this.startHour;

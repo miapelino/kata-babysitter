@@ -26,7 +26,7 @@ public class PaymentCalculatorTest {
         Job job = new Job();
         job.setStartHour(17);
         job.setEndHour(22);
-        when(rate.getRate()).thenReturn(9);
+        when(rate.getRate(job.getFamily())).thenReturn(9);
 
         int actual = paymentCalculator.calculatePayment(job);
 
@@ -38,11 +38,11 @@ public class PaymentCalculatorTest {
         Job job = new Job();
         job.setStartHour(18);
         job.setEndHour(23);
-        when(rate.getRate()).thenReturn(9);
+        when(rate.getRate(job.getFamily())).thenReturn(9);
 
         paymentCalculator.calculatePayment(job);
 
-        verify(rate, times(1)).getRate();
+        verify(rate, times(1)).getRate(job.getFamily());
     }
 
 }
