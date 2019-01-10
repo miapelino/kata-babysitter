@@ -18,7 +18,18 @@ public class JobTest {
 
         job.setStartHour(startHour);
 
-        assertThat(startHour, is(job.getStartHour()));
+        assertThat(job.getStartHour(), is(startHour));
+    }
+
+    @Test
+    public void testGetAndSetStartHourAfterValidDurationIsSet() throws Exception {
+        int startHour = 19;
+        int jobDuration = 6;
+
+        job.setJobDuration(jobDuration);
+        job.setStartHour(startHour);
+
+        assertThat(job.getStartHour(), is(startHour));
     }
 
     @Test(expected = Exception.class)
@@ -28,20 +39,49 @@ public class JobTest {
         job.setStartHour(startHour);
     }
 
+    @Test(expected = Exception.class)
+    public void testSetValidStartHourThrowsExceptionWhenDurationSetFirstInvalidatesIt() throws Exception {
+        int startHour = 20;
+        int jobDuration = 10;
+
+        job.setJobDuration(jobDuration);
+        job.setStartHour(startHour);
+    }
+
     @Test
-    public void testGetAndSetEndHour() throws Exception {
-        int endHour = 23;
+    public void testGetAndSetJobDuration() throws Exception {
+        int jobDuration = 6;
 
-        job.setEndHour(endHour);
+        job.setJobDuration(jobDuration);
 
-        assertThat(endHour, is(job.getEndHour()));
+        assertThat(job.getJobDuration(), is(jobDuration));
+    }
+
+    @Test
+    public void testGetAndSetJobDurationAfterValidStartTimeIsSet() throws Exception {
+        int startHour = 20;
+        int jobDuration = 6;
+
+        job.setStartHour(startHour);
+        job.setJobDuration(jobDuration);
+
+        assertThat(job.getJobDuration(), is(jobDuration));
     }
 
     @Test(expected = Exception.class)
-    public void testSetInvalidEndHourThrowsException() throws Exception {
-        int endHour = 29;
+    public void testSetInvalidJobDurationWhenJobStartNotYetSetThrowsException() throws Exception {
+        int jobDuration = 20;
 
-        job.setEndHour(endHour);
+        job.setJobDuration(jobDuration);
+    }
+
+    @Test(expected = Exception.class)
+    public void testSetInvalidJobDurationWhenJobStartSetThrowsException() throws Exception {
+        int jobStart = 19;
+        int jobDuration = 10;
+
+        job.setStartHour(jobStart);
+        job.setJobDuration(jobDuration);
     }
 
     @Test
@@ -50,6 +90,18 @@ public class JobTest {
 
         job.setFamily(testFamily);
 
-        assertThat(testFamily, is(job.getFamily()));
+        assertThat(job.getFamily(), is(testFamily));
+    }
+
+    @Test
+    public void testGetJobEndTime() throws Exception {
+        int jobDuration = 7;
+        int startTime = 18;
+        int expected = jobDuration + startTime;
+
+        job.setJobDuration(jobDuration);
+        job.setStartHour(startTime);
+
+        assertThat(job.getJobEndHour(), is(expected));
     }
 }
