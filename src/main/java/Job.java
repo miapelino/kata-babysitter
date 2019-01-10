@@ -5,9 +5,7 @@ public class Job {
     private int startHour;
     private int endHour;
 
-    public Family getFamily() {
-        return this.family;
-    }
+    public Family getFamily() {return this.family;}
 
     public void setFamily(Family family) {
         this.family = family;
@@ -24,11 +22,12 @@ public class Job {
                 BABYSITTER_START_TIME - 12));
     }
 
-    public int getEndHour() {
-        return this.endHour;
-    }
+    public int getEndHour() {return this.endHour;}
 
-    public void setEndHour(int endHour) {
-        this.endHour = endHour;
+    public void setEndHour(int endHour) throws Exception {
+        if(endHour<=BABYSITTER_END_TIME) {
+            this.endHour = endHour;
+        } else throw new Exception(String.format("Babysitter cannot end work after %d:00 am",
+                BABYSITTER_END_TIME - 24));
     }
 }

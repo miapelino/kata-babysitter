@@ -1,6 +1,5 @@
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -30,12 +29,19 @@ public class JobTest {
     }
 
     @Test
-    public void testGetAndSetEndHour() {
+    public void testGetAndSetEndHour() throws Exception {
         int endHour = 23;
 
         job.setEndHour(endHour);
 
         assertThat(endHour, is(job.getEndHour()));
+    }
+
+    @Test(expected = Exception.class)
+    public void testSetInvalidEndHourThrowsException() throws Exception {
+        int endHour = 29;
+
+        job.setEndHour(endHour);
     }
 
     @Test
