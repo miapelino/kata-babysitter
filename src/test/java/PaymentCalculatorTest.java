@@ -17,7 +17,7 @@ public class PaymentCalculatorTest {
 
     private Job job;
 
-    private FamilyTestFactory familyTestFactory;
+    private TestDataHelper familyTestFactory;
 
     private static final int START_HOUR_17 = 17;
     private static final int START_HOUR_22 = 22;
@@ -27,7 +27,7 @@ public class PaymentCalculatorTest {
     @Before
     public void setUp() {
         initMocks(this);
-        familyTestFactory = new FamilyTestFactory();
+        familyTestFactory = new TestDataHelper();
     }
 
     @Test
