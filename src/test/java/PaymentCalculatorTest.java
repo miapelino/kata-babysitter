@@ -22,7 +22,7 @@ public class PaymentCalculatorTest {
     }
 
     @Test
-    public void calculatePaymentTakesHoursFromJobAndUsesRateToReturnTotalPay() {
+    public void calculatePaymentTakesHoursFromJobAndUsesRateToReturnTotalPay() throws Exception {
         Family familyA = new Family();
         Job job = new Job();
         job.setFamily(familyA);
@@ -36,7 +36,7 @@ public class PaymentCalculatorTest {
     }
 
     @Test
-    public void calculatePaymentGetsRateFromRateClass() {
+    public void calculatePaymentGetsRateFromRateClass() throws Exception {
         Job job = new Job();
         job.setStartHour(18);
         job.setEndHour(23);

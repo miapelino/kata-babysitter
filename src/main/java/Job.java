@@ -1,4 +1,6 @@
 public class Job {
+    private static final int BABYSITTER_START_TIME = 17;
+    private static final int BABYSITTER_END_TIME = 28;
     private Family family;
     private int startHour;
     private int endHour;
@@ -15,8 +17,11 @@ public class Job {
         return this.startHour;
     }
 
-    public void setStartHour(int startHour) {
-        this.startHour = startHour;
+    public void setStartHour(int startHour) throws Exception {
+        if(startHour>=BABYSITTER_START_TIME) {
+            this.startHour = startHour;
+        } else throw new Exception(String.format("Babysitter cannot start work before %d:00 pm",
+                BABYSITTER_START_TIME - 12));
     }
 
     public int getEndHour() {
