@@ -5,7 +5,7 @@ import org.mockito.Mock;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 
@@ -65,10 +65,21 @@ public class PaymentCalculatorTest {
     @Test
     public void calculateStandardPaymentForFamilyAReturnsExpectedAmount() throws Exception {
         Job job = getFamilyAJob();
+        when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(15);
 
         int actual = paymentCalculator.calculateStandardPayment(job);
 
         assertThat(actual, is(90));
+    }
+
+    @Test
+    public void calculateStandardPaymentForFamilyBReturnsExpectedAmount() throws Exception {
+        Job job = getFamilyBJob();
+        when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(12);
+
+        int actual = paymentCalculator.calculateStandardPayment(job);
+
+        assertThat(actual, is(60));
     }
 
     private Job getFamilyAJob() throws Exception {

@@ -1,6 +1,7 @@
 public class PaymentCalculator {
 
     private Rate rate = new Rate();
+    private int[] payment = new int[]{3};
 
     public int calculatePayment(Job job) {
         int hourlyRate = rate.getStandardHourlyRate(job.getFamily());
@@ -8,7 +9,8 @@ public class PaymentCalculator {
     }
 
     public int calculateStandardPayment(Job job) {
-        return 90;
+        payment[0] = rate.getStandardHourlyRate(job.getFamily()) * getNumberOfStandardHours(job);
+        return payment[0];
     }
 
     public int getNumberOfStandardHours(Job job) {
