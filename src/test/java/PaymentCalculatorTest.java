@@ -22,15 +22,17 @@ public class PaymentCalculatorTest {
     }
 
     @Test
-    public void calculatePaymentTakesHoursFromJobAndReturnsTotalPay() {
+    public void calculatePaymentTakesHoursFromJobAndUsesRateToReturnTotalPay() {
+        Family familyA = new Family();
         Job job = new Job();
+        job.setFamily(familyA);
         job.setStartHour(17);
         job.setEndHour(22);
-        when(rate.getRate(job.getFamily())).thenReturn(9);
+        when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(15);
 
         int actual = paymentCalculator.calculatePayment(job);
 
-        assertThat(actual, is(45));
+        assertThat(actual, is(75));
     }
 
     @Test
@@ -38,11 +40,11 @@ public class PaymentCalculatorTest {
         Job job = new Job();
         job.setStartHour(18);
         job.setEndHour(23);
-        when(rate.getRate(job.getFamily())).thenReturn(9);
+        when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(9);
 
         paymentCalculator.calculatePayment(job);
 
-        verify(rate, times(1)).getRate(job.getFamily());
+        verify(rate, times(1)).getStandardHourlyRate(job.getFamily());
     }
 
 }

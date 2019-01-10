@@ -1,29 +1,35 @@
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 public class RateTest {
-    @InjectMocks
     private Rate rate;
-    @Mock
-    private Family family;
 
     @Before
-    public void setup() {
-        initMocks(this);
+    public void setUp() {
+        rate = new Rate();
     }
+
     @Test
-    public void getRateUsingFamilyReturnsNine() {
-        when(family.getTotalKids()).thenReturn(1);
+    public void getStandardHourlyRateUsingFamilyAReturns15() {
+        Family familyA = getTestFamilyA();
 
-        int actual = rate.getRate(family);
+        int actual = rate.getStandardHourlyRate(familyA);
 
-        assertThat(actual, is(9));
+        assertThat(actual, is(15));
     }
+
+    private Family getTestFamilyA() {
+        Family familyA = new Family();
+        familyA.setTotalKids(2);
+        familyA.setTotalDogs(0);
+        familyA.setTotalCats(0);
+
+        return familyA;
+    }
+
+
+
 }

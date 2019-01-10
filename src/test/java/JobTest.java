@@ -15,22 +15,27 @@ public class JobTest {
     @Test
     public void testGetAndSetStartHour() {
         int startHour = 19;
-        job.setStartHour(startHour);
-        assertThat(startHour, is(job.getStartHour()));
 
+        job.setStartHour(startHour);
+
+        assertThat(startHour, is(job.getStartHour()));
     }
 
     @Test
     public void testGetAndSetEndHour() {
         int endHour = 23;
+
         job.setEndHour(endHour);
+
         assertThat(endHour, is(job.getEndHour()));
     }
 
     @Test
     public void testGetAndSetFamily() {
         Family testFamily = new Family();
+
         job.setFamily(testFamily);
+
         assertThat(testFamily, is(job.getFamily()));
     }
 }
