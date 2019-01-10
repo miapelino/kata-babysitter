@@ -7,12 +7,13 @@ import static org.junit.Assert.assertThat;
 public class PaymentCalculatorTest {
 
     @Test
-    public void calculatePaymentTakesNumberOfHoursAndReturnsTotalPay() {
+    public void calculatePaymentTakesStartAndEndHoursAndReturnsTotalPay() {
         PaymentCalculator paymentCalculator = new PaymentCalculator();
-        int hoursWorked = 5;
+        int startHour = 17;
+        int endHour = 22;
 
-        double actual = paymentCalculator.calculatePayment(hoursWorked);
+        int actual = paymentCalculator.calculatePayment(startHour, endHour);
 
-        assertThat(actual, is(50.00));
+        assertThat(actual, is(45));
     }
 }

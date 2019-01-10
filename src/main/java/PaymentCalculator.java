@@ -1,6 +1,7 @@
 public class PaymentCalculator {
 
-    public double calculatePayment(int hoursWorked) {
-        return 50.00;
+    public int calculatePayment(int startHour, int endHour) {
+        int hourlyRate = 9;
+        return (endHour - startHour)*hourlyRate;
     }
 }
