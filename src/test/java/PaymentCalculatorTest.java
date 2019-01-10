@@ -1,3 +1,4 @@
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -13,27 +14,35 @@ public class PaymentCalculatorTest {
     private PaymentCalculator paymentCalculator;
     @Mock
     private Rate rate;
+    private Job job;
+
+    @Before
+    public void setUp() {
+        initMocks(this);
+    }
 
     @Test
-    public void calculatePaymentTakesStartAndEndHoursAndReturnsTotalPay() {
-        paymentCalculator = new PaymentCalculator();
-        int startHour = 17;
-        int endHour = 22;
+    public void calculatePaymentTakesHoursFromJobAndReturnsTotalPay() {
+        Job job = new Job();
+        job.setStartHour(17);
+        job.setEndHour(22);
+        when(rate.getRate()).thenReturn(9);
 
-        int actual = paymentCalculator.calculatePayment(startHour, endHour);
+        int actual = paymentCalculator.calculatePayment(job);
 
         assertThat(actual, is(45));
     }
 
     @Test
     public void calculatePaymentGetsRateFromRateClass() {
-        initMocks(this);
-        int startHour = 18;
-        int endHour = 23;
+        Job job = new Job();
+        job.setStartHour(18);
+        job.setEndHour(23);
         when(rate.getRate()).thenReturn(9);
 
-        paymentCalculator.calculatePayment(startHour, endHour);
+        paymentCalculator.calculatePayment(job);
 
         verify(rate, times(1)).getRate();
     }
+
 }
