@@ -17,104 +17,94 @@ public class PaymentCalculatorTest {
 
     private Job job;
 
+    private FamilyTestFactory familyTestFactory;
+
     private static final int START_HOUR_17 = 17;
+    private static final int START_HOUR_22 = 22;
     private static final int JOB_DURATION_2 = 2;
-    private static final int JOB_DURATION_5 = 5;
     private static final int JOB_DURATION_9 = 9;
 
     @Before
     public void setUp() {
         initMocks(this);
+        familyTestFactory = new FamilyTestFactory();
     }
 
     @Test
-    public void calculateStandardFamilyAPaymentAddsStandardPaymentAmountToObject() throws Exception {
-        Job job = getFamilyAJob(START_HOUR_17,JOB_DURATION_5);
+    public void calculateFamilyAPaymentReturnsStandardAndLateNightPaymentsAsTotal() throws Exception {
+        Job job = familyTestFactory.getFamilyAJob(START_HOUR_17,JOB_DURATION_9);
         when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(15);
-
-        paymentCalculator.calculatePayment(job);
-
-        assertThat(paymentCalculator.getPayment()[0], is(75));
-    }
-
-    @Test
-    public void calculateStandardPaymentForFamilyAJobReturnsStandardHourlyPay() throws Exception {
-        Job job = getFamilyAJob(START_HOUR_17,JOB_DURATION_2);
-        when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(15);
-
-        int actual = paymentCalculator.calculatePayment(job);
-
-        assertThat(actual, is(30));
-    }
-
-    @Test
-    public void calculateStandardPaymentForFamilyBJobReturnsStandardHourlyPay() throws Exception {
-        Job job = getFamilyBJob();
-        when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(12);
-
-        int actual = paymentCalculator.calculatePayment(job);
-
-        assertThat(actual, is(60));
-    }
-
-    @Test
-    public void calculateStandardPaymentForFamilyAReturnsExpectedAmount() throws Exception {
-        Job job = getFamilyAJob(START_HOUR_17,JOB_DURATION_9);
-        when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(15);
+        when(rate.getBedtimeHourlyRate(job.getFamily())).thenReturn(0);
 
         int actual = paymentCalculator.calculatePayment(job);
 
         assertThat(actual, is(90));
+        assertThat(paymentCalculator.getPayment()[0], is(90));
+        assertThat(paymentCalculator.getPayment()[1], is(0));
     }
 
     @Test
-    public void calculateStandardPaymentForFamilyBReturnsExpectedAmount() throws Exception {
-        Job job = getFamilyBJob();
+    public void calculateFamilyAPaymentReturnsOnlyStandardPaymentAmount() throws Exception {
+        Job job = familyTestFactory.getFamilyAJob(START_HOUR_17,JOB_DURATION_2);
+        when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(15);
+        when(rate.getBedtimeHourlyRate(job.getFamily())).thenReturn(0);
+
+        int actual = paymentCalculator.calculatePayment(job);
+
+        assertThat(actual, is(30));
+        assertThat(paymentCalculator.getPayment()[0], is(30));
+        assertThat(paymentCalculator.getPayment()[1], is(0));
+    }
+
+//    @Test
+//    public void calculateFamilyBPaymentReturnsStandardAndBedTimePaymentTotals() throws Exception {
+//        Job job = familyTestFactory.getFamilyBJob(START_HOUR_17,JOB_DURATION_9);
+//        when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(12);
+//        when(rate.getBedtimeHourlyRate(job.getFamily())).thenReturn(8);
+//
+//        int actual = paymentCalculator.calculatePayment(job);
+//
+//        assertThat(actual, is(100));
+//        assertThat(paymentCalculator.getPayment()[0], is(60));
+//        assertThat(paymentCalculator.getPayment()[1], is(40));
+//    }
+
+    @Test
+    public void calculateFamilyBPaymentReturnsOnlyStandardTotal() throws Exception {
+        Job job = familyTestFactory.getFamilyBJob(START_HOUR_17,JOB_DURATION_2);
         when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(12);
+        when(rate.getBedtimeHourlyRate(job.getFamily())).thenReturn(8);
 
         int actual = paymentCalculator.calculatePayment(job);
 
-        assertThat(actual, is(60));
+        assertThat(actual, is(24));
+        assertThat(paymentCalculator.getPayment()[0], is(24));
+        assertThat(paymentCalculator.getPayment()[1], is(0));
     }
 
     @Test
-    public void calculateStandardPaymentForFamilyCReturnsExpectedAmount() throws Exception {
-        Job job = getFamilyCJob();
-        when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(21);
+    public void calculateFamilyBPaymentJobStartsAfterBedtimeReturnsOnlyBedtimeTotal() throws Exception {
+        Job job = familyTestFactory.getFamilyBJob(START_HOUR_22,JOB_DURATION_2);
+        when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(12);
+        when(rate.getBedtimeHourlyRate(job.getFamily())).thenReturn(8);
 
         int actual = paymentCalculator.calculatePayment(job);
 
-        assertThat(actual, is(84));
+        assertThat(actual, is(16));
+        assertThat(paymentCalculator.getPayment()[0], is(0));
+        assertThat(paymentCalculator.getPayment()[1], is(16));
     }
 
-    private Job getFamilyAJob(int startHour, int jobDuration) throws Exception {
-        Job job = new Job();
-        job.setStartHour(startHour);
-        job.setJobDuration(jobDuration);
-        Family familyA = new Family();
-        familyA.setLateNightStartHour(23);
-        job.setFamily(familyA);
-        return job;
-    }
+    @Test
+    public void calculateFamilyCPaymentReturnsStandardAndBedTimePaymentTotals() throws Exception {
+        Job job = familyTestFactory.getFamilyCJob(START_HOUR_17,JOB_DURATION_9);
+        when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(21);
+        when(rate.getBedtimeHourlyRate(job.getFamily())).thenReturn(15);
 
-    private Job getFamilyBJob() throws Exception {
-        Job job = new Job();
-        job.setStartHour(17);
-        job.setJobDuration(9);
-        Family familyB = new Family();
-        familyB.setBedtimeStartHour(22);
-        familyB.setLateNightStartHour(24);
-        job.setFamily(familyB);
-        return job;
-    }
+        int actual = paymentCalculator.calculatePayment(job);
 
-    private Job getFamilyCJob() throws Exception {
-        Job job = new Job();
-        job.setStartHour(17);
-        job.setJobDuration(9);
-        Family familyC = new Family();
-        familyC.setBedtimeStartHour(21);
-        job.setFamily(familyC);
-        return job;
+        assertThat(actual, is(159));
+        assertThat(paymentCalculator.getPayment()[0], is(84));
+        assertThat(paymentCalculator.getPayment()[1], is(75));
     }
 }

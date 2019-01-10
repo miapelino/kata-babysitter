@@ -32,10 +32,6 @@ public class Job {
                 BABYSITTER_END_TIME - 24));
     }
 
-    public int getJobEndHour() {
-        return startHour + jobDuration;
-    }
-
     private void setRemainingHours(int remainingHours) {
         this.remainingHours = remainingHours;
     }
@@ -45,7 +41,7 @@ public class Job {
     }
 
     public int getNumberOfStandardHours() {
-        int standardHours = 0;
+        int standardHours;
         if(this.family.getBedtimeStartHour() != 0 &&
                 !(this.jobDuration < (this.family.getBedtimeStartHour() - this.startHour))) {
             standardHours = this.family.getBedtimeStartHour() - this.startHour;
@@ -59,4 +55,22 @@ public class Job {
         return standardHours;
     }
 
+    public int getNumberOfBedtimeHours(int hoursRemaining) {
+        if(this.family.getBedtimeStartHour() != 0) {
+            int bedtimeHours;
+            if (this.family.getLateNightStartHour() != 0 &&
+                    !(hoursRemaining < (this.family.getLateNightStartHour() - this.family.getBedtimeStartHour()))) {
+                bedtimeHours = this.family.getLateNightStartHour() - this.family.getBedtimeStartHour();
+                setRemainingHours(hoursRemaining - bedtimeHours);
+            } else if (this.family.getLateNightStartHour() != 0 &&
+                    !(hoursRemaining >= (this.family.getLateNightStartHour() - this.family.getBedtimeStartHour()))) {
+                bedtimeHours = this.family.getLateNightStartHour() - this.family.getBedtimeStartHour();
+                setRemainingHours(hoursRemaining - bedtimeHours);
+            } else {
+                bedtimeHours = hoursRemaining;
+            }
+            return bedtimeHours;
+        }
+        return this.family.getBedtimeStartHour();
+    }
 }
