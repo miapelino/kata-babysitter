@@ -35,12 +35,11 @@ public class PaymentCalculatorTest {
         Job job = familyTestFactory.getFamilyAJob(START_HOUR_17,JOB_DURATION_9);
         when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(15);
         when(rate.getBedtimeHourlyRate(job.getFamily())).thenReturn(0);
+        when(rate.getLateNightHourlyRate(job.getFamily())).thenReturn(20);
 
         int actual = paymentCalculator.calculatePayment(job);
 
-        assertThat(actual, is(90));
-        assertThat(paymentCalculator.getPayment()[0], is(90));
-        assertThat(paymentCalculator.getPayment()[1], is(0));
+        assertThat(actual, is(150));
     }
 
     @Test
@@ -48,38 +47,35 @@ public class PaymentCalculatorTest {
         Job job = familyTestFactory.getFamilyAJob(START_HOUR_17,JOB_DURATION_2);
         when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(15);
         when(rate.getBedtimeHourlyRate(job.getFamily())).thenReturn(0);
+        when(rate.getLateNightHourlyRate(job.getFamily())).thenReturn(20);
 
         int actual = paymentCalculator.calculatePayment(job);
 
         assertThat(actual, is(30));
-        assertThat(paymentCalculator.getPayment()[0], is(30));
-        assertThat(paymentCalculator.getPayment()[1], is(0));
     }
 
-//    @Test
-//    public void calculateFamilyBPaymentReturnsStandardAndBedTimePaymentTotals() throws Exception {
-//        Job job = familyTestFactory.getFamilyBJob(START_HOUR_17,JOB_DURATION_9);
-//        when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(12);
-//        when(rate.getBedtimeHourlyRate(job.getFamily())).thenReturn(8);
-//
-//        int actual = paymentCalculator.calculatePayment(job);
-//
-//        assertThat(actual, is(100));
-//        assertThat(paymentCalculator.getPayment()[0], is(60));
-//        assertThat(paymentCalculator.getPayment()[1], is(40));
-//    }
+    @Test
+    public void calculateFamilyBPaymentReturnsStandardAndBedTimePaymentTotals() throws Exception {
+        Job job = familyTestFactory.getFamilyBJob(START_HOUR_17,JOB_DURATION_9);
+        when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(12);
+        when(rate.getBedtimeHourlyRate(job.getFamily())).thenReturn(8);
+        when(rate.getLateNightHourlyRate(job.getFamily())).thenReturn(16);
+
+        int actual = paymentCalculator.calculatePayment(job);
+
+        assertThat(actual, is(108));
+    }
 
     @Test
     public void calculateFamilyBPaymentReturnsOnlyStandardTotal() throws Exception {
         Job job = familyTestFactory.getFamilyBJob(START_HOUR_17,JOB_DURATION_2);
         when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(12);
         when(rate.getBedtimeHourlyRate(job.getFamily())).thenReturn(8);
+        when(rate.getLateNightHourlyRate(job.getFamily())).thenReturn(16);
 
         int actual = paymentCalculator.calculatePayment(job);
 
         assertThat(actual, is(24));
-        assertThat(paymentCalculator.getPayment()[0], is(24));
-        assertThat(paymentCalculator.getPayment()[1], is(0));
     }
 
     @Test
@@ -87,12 +83,11 @@ public class PaymentCalculatorTest {
         Job job = familyTestFactory.getFamilyBJob(START_HOUR_22,JOB_DURATION_2);
         when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(12);
         when(rate.getBedtimeHourlyRate(job.getFamily())).thenReturn(8);
+        when(rate.getLateNightHourlyRate(job.getFamily())).thenReturn(16);
 
         int actual = paymentCalculator.calculatePayment(job);
 
         assertThat(actual, is(16));
-        assertThat(paymentCalculator.getPayment()[0], is(0));
-        assertThat(paymentCalculator.getPayment()[1], is(16));
     }
 
     @Test
@@ -104,7 +99,5 @@ public class PaymentCalculatorTest {
         int actual = paymentCalculator.calculatePayment(job);
 
         assertThat(actual, is(159));
-        assertThat(paymentCalculator.getPayment()[0], is(84));
-        assertThat(paymentCalculator.getPayment()[1], is(75));
     }
 }
