@@ -11,4 +11,8 @@ public class Rate {
         int petRate = family.getTotalCats() * CAT_RATE + family.getTotalDogs() * DOG_RATE;
         return childRate + petRate;
     }
+
+    public int getBedtimeHourlyRate(Family family) {
+        return 8;
+    }
 }

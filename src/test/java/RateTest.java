@@ -39,6 +39,15 @@ public class RateTest {
         assertThat(actual, is(21));
     }
 
+    @Test
+    public void getBedtimeHourlyRateUsingFamilyBReturns8() {
+        Family familyB = getTestFamilyB();
+
+        int actual = rate.getBedtimeHourlyRate(familyB);
+
+        assertThat(actual, is(8));
+    }
+
     private Family getTestFamilyA() {
         Family familyA = new Family();
         familyA.setTotalKids(2);
