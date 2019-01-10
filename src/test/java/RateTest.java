@@ -57,6 +57,15 @@ public class RateTest {
         assertThat(actual, is(15));
     }
 
+    @Test
+    public void getLateNightHourlyRateUsingFamilyAReturns20() {
+        Family familyA = getTestFamilyA();
+
+        int actual = rate.getLateNightHourlyRate(familyA);
+
+        assertThat(actual, is(20));
+    }
+
     private Family getTestFamilyA() {
         Family familyA = new Family();
         familyA.setTotalKids(2);

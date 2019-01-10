@@ -15,4 +15,8 @@ public class Rate {
     public int getBedtimeHourlyRate(Family family) {
         return getStandardHourlyRate(family) - family.getTotalNumberOfPets() * BEDTIME_PET_VALUE;
     }
+
+    public int getLateNightHourlyRate(Family family) {
+        return 20;
+    }
 }
