@@ -10,7 +10,7 @@ public class JobTest {
     private TestDataHelper testDataHelper;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         testDataHelper = new TestDataHelper();
     }
 

@@ -71,4 +71,96 @@ public class FamilyTest {
 
         assertThat(family.getTotalNumberOfPets(), is(cats + dogs));
     }
+
+    @Test
+    public void getStandardHourlyRateUsingFamilyAReturns15() {
+        Family familyA = getTestFamilyA();
+
+        int actual = familyA.getStandardHourlyRate();
+
+        assertThat(actual, is(15));
+    }
+
+    @Test
+    public void getStandardHourlyRateUsingFamilyBReturns12() {
+        Family familyB = getTestFamilyB();
+
+        int actual = familyB.getStandardHourlyRate();
+
+        assertThat(actual, is(12));
+    }
+
+    @Test
+    public void getStandardHourlyRateUsingFamilyCReturns21() {
+        Family familyC = getTestFamilyC();
+
+        int actual = familyC.getStandardHourlyRate();
+
+        assertThat(actual, is(21));
+    }
+
+    @Test
+    public void getBedtimeHourlyRateUsingFamilyBReturns8() {
+        Family familyB = getTestFamilyB();
+
+        int actual = familyB.getBedtimeHourlyRate();
+
+        assertThat(actual, is(8));
+    }
+
+    @Test
+    public void getBedtimeHourlyRateUsingFamilyCReturns15() {
+        Family familyC = getTestFamilyC();
+
+        int actual = familyC.getBedtimeHourlyRate();
+
+        assertThat(actual, is(15));
+    }
+
+    @Test
+    public void getLateNightHourlyRateUsingHauntedFamilyAReturns20() {
+        Family familyA = getTestFamilyA();
+
+        int actual = familyA.getLateNightHourlyRate();
+
+        assertThat(actual, is(20));
+    }
+
+    @Test
+    public void getLateNightHourlyRateUsingFamilyBReturns16() {
+        Family familyB = getTestFamilyB();
+
+        int actual = familyB.getLateNightHourlyRate();
+
+        assertThat(actual, is(16));
+    }
+
+    private Family getTestFamilyA() {
+        Family familyA = new Family();
+        familyA.setTotalKids(2);
+        familyA.setTotalDogs(0);
+        familyA.setTotalCats(0);
+        familyA.setIsHaunted(true);
+
+        return familyA;
+    }
+
+    private Family getTestFamilyB() {
+        Family familyB = new Family();
+        familyB.setTotalKids(1);
+        familyB.setTotalDogs(0);
+        familyB.setTotalCats(2);
+        familyB.setIsHaunted(false);
+
+        return familyB;
+    }
+
+    private Family getTestFamilyC() {
+        Family familyC = new Family();
+        familyC.setTotalKids(2);
+        familyC.setTotalDogs(3);
+        familyC.setTotalCats(0);
+
+        return familyC;
+    }
 }
