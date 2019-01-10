@@ -40,6 +40,13 @@ public class FamilyTest {
     }
 
     @Test
+    public void testGetAndSetIsHaunted() {
+        family.setIsHaunted(true);
+
+        assertTrue(family.getIsHaunted());
+    }
+
+    @Test
     public void testGetTotalNumberOfPetsAddsThreeCatsAndTwoDogsAndGets5() {
         family.setTotalCats(3);
         family.setTotalDogs(2);

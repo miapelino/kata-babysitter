@@ -2,6 +2,7 @@ public class Family {
     private int totalKids;
     private int totalDogs;
     private int totalCats;
+    private boolean isHaunted;
 
     public int getTotalKids() {return this.totalKids;}
 
@@ -15,8 +16,9 @@ public class Family {
 
     public void setTotalCats(int totalCats) {this.totalCats = totalCats;}
 
-    public int getTotalNumberOfPets() {
-        return this.totalDogs + this.totalCats;
-    }
+    public int getTotalNumberOfPets() {return this.totalDogs + this.totalCats;}
 
+    public boolean getIsHaunted() {return this.isHaunted;}
+
+    public void setIsHaunted(boolean isHaunted) {this.isHaunted = isHaunted;}
 }

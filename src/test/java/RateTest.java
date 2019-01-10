@@ -58,7 +58,7 @@ public class RateTest {
     }
 
     @Test
-    public void getLateNightHourlyRateUsingFamilyAReturns20() {
+    public void getLateNightHourlyRateUsingHauntedFamilyAReturns20() {
         Family familyA = getTestFamilyA();
 
         int actual = rate.getLateNightHourlyRate(familyA);
@@ -66,11 +66,21 @@ public class RateTest {
         assertThat(actual, is(20));
     }
 
+    @Test
+    public void getLateNightHourlyRateUsingFamilyBReturns16() {
+        Family familyB = getTestFamilyB();
+
+        int actual = rate.getLateNightHourlyRate(familyB);
+
+        assertThat(actual, is(16));
+    }
+
     private Family getTestFamilyA() {
         Family familyA = new Family();
         familyA.setTotalKids(2);
         familyA.setTotalDogs(0);
         familyA.setTotalCats(0);
+        familyA.setIsHaunted(true);
 
         return familyA;
     }
@@ -80,6 +90,7 @@ public class RateTest {
         familyB.setTotalKids(1);
         familyB.setTotalDogs(0);
         familyB.setTotalCats(2);
+        familyB.setIsHaunted(false);
 
         return familyB;
     }
