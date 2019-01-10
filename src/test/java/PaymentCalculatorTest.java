@@ -36,25 +36,42 @@ public class PaymentCalculatorTest {
     }
 
     @Test
-    public void calculatePaymentGetsRateFromRateClass() throws Exception {
-        Job job = new Job();
-        job.setStartHour(18);
-        job.setEndHour(23);
-        when(rate.getStandardHourlyRate(job.getFamily())).thenReturn(9);
-
-        paymentCalculator.calculatePayment(job);
-
-        verify(rate, times(1)).getStandardHourlyRate(job.getFamily());
-    }
-
-    @Test
     public void getNumberOfStandardHoursForFamilyAJobReturnsExpectedNumber() throws Exception {
-        Job job = new Job();
-        job.setStartHour(17);
-        job.setEndHour(26);
+        Job job = getFamilyAJob();
 
         int actual = paymentCalculator.getNumberOfStandardHours(job);
 
         assertThat(actual, is(6));
     }
+
+    @Test
+    public void getNumberOfStandardHoursForFamilyBJobReturnsExpectedNumber() throws Exception {
+        Job job = getFamilyBJob();
+
+        int actual = paymentCalculator.getNumberOfStandardHours(job);
+
+        assertThat(actual, is(5));
+    }
+
+    private Job getFamilyAJob() throws Exception {
+        Job job = new Job();
+        job.setStartHour(17);
+        job.setEndHour(26);
+        Family familyA = new Family();
+        familyA.setBedtimeStartHour(23);
+        job.setFamily(familyA);
+        return job;
+    }
+
+    private Job getFamilyBJob() throws Exception {
+        Job job = new Job();
+        job.setStartHour(17);
+        job.setEndHour(26);
+        Family familyB = new Family();
+        familyB.setBedtimeStartHour(22);
+        job.setFamily(familyB);
+        return job;
+    }
+
+
 }

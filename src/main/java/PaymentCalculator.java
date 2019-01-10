@@ -8,6 +8,6 @@ public class PaymentCalculator {
     }
 
     public int getNumberOfStandardHours(Job job) {
-        return 6;
+        return job.getFamily().getBedtimeStartHour() - job.getStartHour();
     }
 }

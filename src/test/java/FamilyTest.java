@@ -18,7 +18,7 @@ public class FamilyTest {
 
         family.setTotalKids(expectedTotalKids);
 
-        assertThat(expectedTotalKids, is(family.getTotalKids()));
+        assertThat(family.getTotalKids(), is(expectedTotalKids));
     }
 
     @Test
@@ -27,7 +27,7 @@ public class FamilyTest {
 
         family.setTotalDogs(expectedTotalDogs);
 
-        assertThat(expectedTotalDogs, is(family.getTotalDogs()));
+        assertThat(family.getTotalDogs(), is(expectedTotalDogs));
     }
 
     @Test
@@ -36,7 +36,7 @@ public class FamilyTest {
 
         family.setTotalCats(expectedTotalCats);
 
-        assertThat(expectedTotalCats, is(family.getTotalCats()));
+        assertThat(family.getTotalCats(), is(expectedTotalCats));
     }
 
     @Test
@@ -47,12 +47,21 @@ public class FamilyTest {
     }
 
     @Test
+    public void testGetAndSetBedtimeStartTime() {
+        int expectedBedtime = 23;
+
+        family.setBedtimeStartHour(expectedBedtime);
+
+        assertThat(family.getBedtimeStartHour(), is(expectedBedtime));
+    }
+
+    @Test
     public void testGetTotalNumberOfPetsAddsThreeCatsAndTwoDogsAndGets5() {
-        family.setTotalCats(3);
-        family.setTotalDogs(2);
+        int cats = 3;
+        int dogs = 2;
+        family.setTotalCats(cats);
+        family.setTotalDogs(dogs);
 
-        int actual = family.getTotalNumberOfPets();
-
-        assertThat(actual, is(5));
+        assertThat(family.getTotalNumberOfPets(), is(cats + dogs));
     }
 }
