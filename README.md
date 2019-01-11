@@ -6,7 +6,7 @@ This kata submision simulates a babysitter working and getting paid for one nigh
 
 This plugin uses Gradle as its build tool.
 
-To build the project, run ```.gradlew build```
+To build the project, run ```./gradlew build```
 
 ## Running Tests
 To run all tests, use the command ```./gradlew test```

@@ -16,3 +16,11 @@ dependencies {
             [group: 'org.mockito', name: 'mockito-core', version: '1.9.5']
     )
 }
+
+tasks.withType(Test) {
+    testLogging {
+        exceptionFormat "full"
+        events "started", "skipped", "passed", "failed"
+        showStandardStreams true
+    }
+}
